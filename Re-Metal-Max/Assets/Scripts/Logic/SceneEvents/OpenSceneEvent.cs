@@ -52,7 +52,7 @@ namespace ReMetalMax.Logic.SceneEvents
 
             m_playAnimationEvent = new PlayAnimationEvent((cxt) => cxt[spriteName].GetComponent<Animation>(), "Logo", PlayMode.StopSameLayer)
             {
-                OnForceStoped = (ctx) =>
+                OnForceStoped = (ctx2) =>
                 {
                 }
             }
@@ -64,7 +64,7 @@ namespace ReMetalMax.Logic.SceneEvents
                         (cxt2) => cxt2[spriteTitleName].GetComponent<Animation>(),
                         "Logo_Title", PlayMode.StopSameLayer)
                     {
-                        OnForceStoped = (ctx) => { }
+                        OnForceStoped = (ctx3) => { }
                     };
 
                     context.Push(new DestroySpriteEvent(spriteName));
@@ -80,7 +80,7 @@ namespace ReMetalMax.Logic.SceneEvents
                         (cxt2) => cxt2[spriteTitleBgName].GetComponent<Animation>(),
                         "Logo_Bg", PlayMode.StopSameLayer)
                     {
-                        OnForceStoped = (ctx) => { }
+                        OnForceStoped = (ctx3) => { }
                     };
 
                     return m_playAnimationEvent;
@@ -94,7 +94,7 @@ namespace ReMetalMax.Logic.SceneEvents
                         (cxt2) => cxt2[spriteContentName].GetComponent<Animation>(),
                         "Logo_Content", PlayMode.StopSameLayer)
                     {
-                        OnForceStoped = (ctx) => { }
+                        OnForceStoped = (ctx2) => { }
                     };
 
                     return m_playAnimationEvent;
