@@ -7,6 +7,7 @@ namespace ReMetalMax.Util
 
     public class MessageDispatcher
     {
+        public static readonly MessageDispatcher CoreInstance = new MessageDispatcher();
         public static readonly MessageDispatcher Instance = new MessageDispatcher();
 
         private Dictionary<object, MessageCallBack> m_msgDict = new Dictionary<object, MessageCallBack>();

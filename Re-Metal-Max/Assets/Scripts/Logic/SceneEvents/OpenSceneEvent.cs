@@ -1,3 +1,4 @@
+using ReMetalMax.Core;
 using ReMetalMax.Core.Event;
 using ReMetalMax.Core.Event.NativeEvents;
 using ReMetalMax.Util;
@@ -30,6 +31,8 @@ namespace ReMetalMax.Logic.SceneEvents
         public override void Excute(EventContext context)
         {
             const string spriteName =  "open_scene_sprite";
+
+            context.Push(new BGMEvent("Musics/BGMs/1.Metal max", AudioManager.AudioEvent.Play));
 
             context.Push(new InstantiateSpriteEvent(m_openSceneSprite, spriteName)
             {
