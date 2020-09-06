@@ -17,7 +17,7 @@ namespace ReMetalMax.Core.Event.NativeEvents
             var obj = context[this.m_spriteName];
             if (obj != null)
             {
-                GameObject.Destroy(obj);
+                GameObject.Destroy(obj.gameObject);
                 context.RemoveFromDict(this.m_spriteName);
             }
         }
