@@ -2,6 +2,6 @@ namespace ReMetalMax.Core.Event
 {
     public interface IRePushEvent
     {
-        void StopRepush();
+        void StopRepush(EventContext context);
     }
 }

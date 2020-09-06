@@ -1,55 +1,59 @@
 using System;
-using ReMetalMax.Core.Event;
 using UnityEngine;
 
 namespace ReMetalMax.Core.Event.NativeEvents
 {
-    public class PlayAnimationEvent : IEvent, IRePushEvent
+    public class PlayAnimationEvent : BaseEvent, IRePushEvent
     {
-        public Action OnEnd { get; set; }
-
-        public bool IsDone { get; set; }
-
-        private Animation m_animation;
+        public Action<EventContext> OnEnd { get; set; }
+        private Func<EventContext, Animation> m_animationCallBack;
         private string m_animationName;
         private PlayMode m_animationPlayMode;
         private bool m_played = false;
 
-        public PlayAnimationEvent(Animation animation, string animationName, PlayMode animationPlayMode)
+        public PlayAnimationEvent(Func<EventContext, Animation> animationCallBack, string animationName, PlayMode animationPlayMode)
         {
-            m_animation = animation;
+            m_animationCallBack = animationCallBack;
             m_animationName = animationName;
             m_animationPlayMode = animationPlayMode;
         }
 
-        public void Excute(EventContext context)
+        public override void Excute(EventContext context)
         {
             if (this.IsDone)
             {
                 return;
             }
 
-            if (this.m_animation.isPlaying) {
-                if (m_played)
+            var animation = m_animationCallBack.Invoke(context);
+            if (animation)
+            {
+                if (m_played && !animation.isPlaying)
                 {
-                    IsDone = true;
-                    OnEnd?.Invoke();
+                    this.IsDone = true;
+                    OnEnd?.Invoke(context);
+                    return;
                 }
                 else
                 {
-                    context.Push(this);
+                    context.PushToNextFrame(this);
                 }
-                return;
+            }
+            else
+            {
+                this.IsDone = true;
+                OnEnd?.Invoke(context);
             }
 
             m_played = true;
-            this.m_animation.Play(this.m_animationName, this.m_animationPlayMode);
-            context.Push(this);
+            animation.Play(this.m_animationName, this.m_animationPlayMode);
+            context.PushToNextFrame(this);
         }
 
-        public void StopRepush()
+        public void StopRepush(EventContext context)
         {
             this.IsDone = true;
+            OnEnd?.Invoke(context);
         }
     }
 }
