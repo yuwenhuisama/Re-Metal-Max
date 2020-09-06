@@ -2,7 +2,7 @@ using ReMetalMax.Core;
 using ReMetalMax.Core.Event;
 using ReMetalMax.Core.Event.NativeEvents;
 using ReMetalMax.Util;
-
+using ReMetalMax.Util.Attributes;
 using UnityEngine;
 
 namespace ReMetalMax.Logic.SceneEvents
@@ -20,12 +20,13 @@ namespace ReMetalMax.Logic.SceneEvents
         {
             m_openSceneSprite = openSceneSprite;
 
-            m_stopCallBack = (msg) =>
-            {
-                m_playAnimationEvent?.StopRepush(msg as EventContext);
-            };
+            MessageDispatcher.Instance.MessageRegistration(this);
+        }
 
-            MessageDispatcher.Instance.Register(StopOpenScene, m_stopCallBack);
+        [MessageRegisterInfo(Key = StopOpenScene)]
+        private void StopCallBack(object msg)
+        {
+            m_playAnimationEvent?.StopRepush(msg as EventContext);
         }
 
         public override void Excute(EventContext context)
@@ -49,7 +50,7 @@ namespace ReMetalMax.Logic.SceneEvents
                     Debug.Log("OnEnd");
                     cxt.Push(new DestroySpriteEvent(spriteName));
                     this.IsDone = true;
-                    MessageDispatcher.Instance.Unregister(StopOpenScene, m_stopCallBack);
+                    MessageDispatcher.Instance.MessageUnregistration(this);
                 },
             };
 

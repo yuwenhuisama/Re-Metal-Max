@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using ReMetalMax.Util;
+using ReMetalMax.Util.Attributes;
 
 namespace ReMetalMax.Core
 {
@@ -26,14 +27,15 @@ namespace ReMetalMax.Core
             m_bgmPlayer = bgmPlayer;
             m_soundPlayer = soundPlayer;
 
-            m_playBGMCallBack = (msg) =>
-            {
-                var clip = Resources.Load<AudioClip>(msg as string);
-                m_bgmPlayer.clip = clip;
-                m_bgmPlayer.PlayOneShot(clip);
-            };
+            MessageDispatcher.CoreInstance.MessageRegistration(this);
+        }
 
-            MessageDispatcher.CoreInstance.Register(AudioEvent.Play, m_playBGMCallBack);
+        [MessageRegisterInfo(Key = AudioEvent.Play)]
+        public void PlayBGMCallBack(object msg)
+        {
+            var clip = Resources.Load<AudioClip>(msg as string);
+            m_bgmPlayer.clip = clip;
+            m_bgmPlayer.PlayOneShot(clip);
         }
 
         public void Release()
@@ -41,7 +43,7 @@ namespace ReMetalMax.Core
             m_bgmPlayer = null;
             m_soundPlayer = null;
 
-            MessageDispatcher.CoreInstance.Unregister(AudioEvent.Play, m_playBGMCallBack);
+            MessageDispatcher.CoreInstance.MessageUnregistration(this);
         }
     }
 }

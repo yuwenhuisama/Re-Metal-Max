@@ -1,5 +1,8 @@
 using System;
+using System.Reflection;
 using System.Collections.Generic;
+
+using ReMetalMax.Util.Attributes;
 
 namespace ReMetalMax.Util
 {
@@ -11,6 +14,8 @@ namespace ReMetalMax.Util
         public static readonly MessageDispatcher Instance = new MessageDispatcher();
 
         private Dictionary<object, MessageCallBack> m_msgDict = new Dictionary<object, MessageCallBack>();
+
+        private Dictionary<Type, LinkedList<Tuple<object, MethodInfo>>> m_attributedMethodsCache = new Dictionary<Type, LinkedList<Tuple<object, MethodInfo>>>();
 
         public void Send(object token, object msg)
         {
@@ -42,6 +47,67 @@ namespace ReMetalMax.Util
                     m_msgDict.Remove(token);
                 }
             }
+        }
+
+        private void _HandleMessageRegistrationAttribute(object obj, Action<object, MessageCallBack> action)
+        {
+            var type = obj.GetType();
+
+            // cache
+            if (m_attributedMethodsCache.ContainsKey(type))
+            {
+                var methodList = m_attributedMethodsCache[type];
+                foreach (var methodTuple in methodList)
+                {
+                    (var key, var method) = methodTuple;
+                    var deleg = Delegate.CreateDelegate(typeof(MessageCallBack), obj, method);
+                    action(key, deleg as MessageCallBack);
+                }
+            }
+            else
+            {
+                var methodsColl = new LinkedList<Tuple<object, MethodInfo>>();
+                var methods = type.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                foreach (var method in methods)
+                {
+                    var attributes = method.GetCustomAttributes(false);
+                    foreach (var attribute in attributes)
+                    {
+                        if (attribute is MessageRegisterInfo)
+                        {
+                            var key = (attribute as MessageRegisterInfo).Key;
+                            var deleg = Delegate.CreateDelegate(typeof(MessageCallBack), obj, method);
+                            methodsColl.AddLast(new Tuple<object, MethodInfo>(key, method));
+
+                            action(key, deleg as MessageCallBack);
+                            break;
+                        }
+                    }
+                }
+
+                if (methodsColl.Count > 0)
+                {
+                    m_attributedMethodsCache[type] = methodsColl;
+                }
+            }
+
+        }
+
+        public void MessageRegistration(object obj) =>
+            _HandleMessageRegistrationAttribute(obj, (key, deleg) =>
+            {
+                this.Register(key, deleg);
+            });
+
+        public void MessageUnregistration(object obj) =>
+            _HandleMessageRegistrationAttribute(obj, (key, deleg) =>
+            {
+                this.Unregister(key, deleg);
+            });
+
+        public void Clear()
+        {
+            m_msgDict.Clear();
         }
 
         public void DispatchAsync()
