@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ReMetalMax.Core
 {
-    public interface ISource
+    public interface IHelper
     {
-        string Name { get; set; }
-        string Type { get; set; }
+        Dictionary<string, ISource> Parse(string path = null);
     }
 }
