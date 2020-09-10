@@ -9,5 +9,7 @@ namespace ReMetalMax.Core
 
         bool Load();
         bool Release();
+
+        void Update();
     }
 }

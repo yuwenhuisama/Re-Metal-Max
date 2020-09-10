@@ -5,6 +5,9 @@ namespace ReMetalMax.Core
 {
     public interface IMapEvent
     {
+        // 事件全局ID
+        long ID { get; }
+
         // 像素坐标
         Vector3 AbsolutePosition { get; set; }
 

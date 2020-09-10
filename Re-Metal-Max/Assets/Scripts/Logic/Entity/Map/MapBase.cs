@@ -22,5 +22,10 @@ namespace ReMetalMax.Logic.Map
         {
             throw new System.NotImplementedException();
         }
+
+        public void Update()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
