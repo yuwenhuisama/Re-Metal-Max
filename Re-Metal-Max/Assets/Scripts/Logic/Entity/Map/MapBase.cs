@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using ReMetalMax.Core;
+using ReMetalMax.Core.Event;
 using UnityEngine;
 
 namespace ReMetalMax.Logic.Map
 {
-    abstract class MapBase : IMap
+    public abstract class MapBase : IMap
     {
-        public Dictionary<Vector3, IMapEvent> MapEvents { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public Dictionary<Vector2Int, IMapEvent> MapEvents { get; private set; } = new Dictionary<Vector2Int, IMapEvent>();
 
         public virtual bool LoadFromPath(string mapPath)
         {
@@ -15,17 +16,35 @@ namespace ReMetalMax.Logic.Map
 
         public virtual bool Load()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public virtual bool Release()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public void Update()
         {
-            throw new System.NotImplementedException();
+            foreach(var pair in this.MapEvents)
+            {
+                pair.Value.OnUpdate();
+            }
+        }
+
+        public bool Initialize()
+        {
+            foreach (var pair in this.MapEvents)
+            {
+                pair.Value.Initialize();
+                // 执行自动事件
+                if (pair.Value.EventType == MapEventType.Auto)
+                {
+                    EventManager.Instance.Context.Push(pair.Value.InnerEvent);
+                }
+                pair.Value.OnStart();
+            }
+            return true;
         }
     }
 }

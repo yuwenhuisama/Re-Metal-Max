@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace ReMetalMax.Core.Event.NativeEvents
 {
-    public class PromiseEvent<EventType>: BaseEvent, IRePushEvent where EventType: PromiseEvent<EventType> {
-        private LinkedList<Func<EventContext, EventType>> m_callbackCache = new LinkedList<Func<EventContext, EventType>>();
+    public class PromiseEvent: BaseEvent, IRePushEvent {
+        private LinkedList<Func<EventContext, PromiseEvent>> m_callbackCache = new LinkedList<Func<EventContext, PromiseEvent>>();
 
         public Action<EventContext> OnEnd { get; set; }
         public Action<EventContext> OnForceStoped { get; set; }
@@ -38,10 +38,10 @@ namespace ReMetalMax.Core.Event.NativeEvents
             };
         }
 
-        public EventType Then(Func<EventContext, EventType> callback)
+        public PromiseEvent Then(Func<EventContext, PromiseEvent> callback)
         {
             m_callbackCache.AddLast(callback);
-            return this as EventType;
+            return this;
         }
 
         public virtual void StopRepush(EventContext context)

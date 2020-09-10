@@ -5,9 +5,10 @@ namespace ReMetalMax.Core
 {
     public interface IMap
     {
-        Dictionary<Vector3, IMapEvent> MapEvents { get; set; }
+        Dictionary<Vector2Int, IMapEvent> MapEvents { get; }
 
         bool Load();
+        bool Initialize();
         bool Release();
 
         void Update();

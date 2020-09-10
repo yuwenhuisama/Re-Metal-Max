@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ReMetalMax.Logic.Map
 {
-    class TestMap : MapBase
+    public class TestMap : MapBase
     {
         public override bool Load()
         {

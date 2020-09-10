@@ -1,4 +1,5 @@
 using UnityEngine;
+using ReMetalMax.Core;
 
 namespace ReMetalMax.Core.Event.NativeEvents
 {
@@ -23,8 +24,11 @@ namespace ReMetalMax.Core.Event.NativeEvents
         {
             if (m_spritePrefab != null)
             {
-                // var parent = GameObject.Find("UI").transform;
-                var obj = GameObject.Instantiate(m_spritePrefab, m_spritePrefab.transform.position, m_spritePrefab.transform.rotation, GameObject.Find("UI").transform);
+                var obj = GameObject.Instantiate(
+                    m_spritePrefab,
+                    m_spritePrefab.transform.position,
+                    m_spritePrefab.transform.rotation,
+                    GameObject.Find(Consts.UINodePath).transform);
                 obj.GetComponent<RectTransform>().anchoredPosition = m_spritePrefab.GetComponent<RectTransform>().anchoredPosition;
                 context[m_name] = obj;
             }

@@ -1,6 +1,7 @@
 using ReMetalMax.Core;
 using ReMetalMax.Core.Event;
 using ReMetalMax.Core.Event.NativeEvents;
+using ReMetalMax.Logic.Map;
 using ReMetalMax.Util;
 using ReMetalMax.Util.Attributes;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace ReMetalMax.Logic.SceneEvents
         private GameObject m_openSceneTitleBgSprite;
         private GameObject m_openSceneContentSprite;
 
-        private PlayAnimationEvent m_playAnimationEvent;
+        private PromiseEvent m_playAnimationEvent;
         private MessageCallBack m_stopCallBack;
 
         public OpenSceneEvent(GameObject openSceneSprite, GameObject openSceneTitleSprite, GameObject openSceneTitleBgSprite, GameObject openSceneContentSprite)
@@ -98,6 +99,13 @@ namespace ReMetalMax.Logic.SceneEvents
                     };
 
                     return m_playAnimationEvent;
+                }
+            ).Then((ctx) =>
+                {
+                    var map = new TestMap();
+                    map.Load();
+                    ctx.Push(new SwitchMapEvent(map));
+                    return null;
                 }
             );
 

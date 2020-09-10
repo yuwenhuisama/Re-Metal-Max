@@ -4,7 +4,7 @@ using ReMetalMax.Core.Event;
 
 namespace ReMetalMax.Core.Event.NativeEvents
 {
-    public class DelayEvent : BaseEvent, IRePushEvent
+    public class DelayEvent : PromiseEvent
     {
         private float m_time = 0.0f;
         Action<EventContext> m_callback;
@@ -14,8 +14,6 @@ namespace ReMetalMax.Core.Event.NativeEvents
             m_time = time;
             m_callback = callback;
         }
-
-        public Action<EventContext> OnForceStoped { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void Excute(EventContext context)
         {
@@ -34,11 +32,6 @@ namespace ReMetalMax.Core.Event.NativeEvents
             {
                 context.PushToNextFrame(this);
             }
-        }
-
-        public void StopRepush(EventContext context)
-        {
-            this.IsDone = true;
         }
     }
 }

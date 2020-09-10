@@ -4,14 +4,12 @@ using UnityEngine;
 
 namespace ReMetalMax.Core.Event.NativeEvents
 {
-    public class PlayAnimationEvent : PromiseEvent<PlayAnimationEvent>, IRePushEvent
+    public class PlayAnimationEvent : PromiseEvent, IRePushEvent
     {
         private Func<EventContext, Animation> m_animationCallBack;
         private string m_animationName;
         private PlayMode m_animationPlayMode;
         private bool m_played = false;
-
-        private LinkedList<Func<EventContext, PlayAnimationEvent>> m_callbackCache = new LinkedList<Func<EventContext, PlayAnimationEvent>>();
 
         public PlayAnimationEvent(Func<EventContext, Animation> animationCallBack, string animationName, PlayMode animationPlayMode)
         {
