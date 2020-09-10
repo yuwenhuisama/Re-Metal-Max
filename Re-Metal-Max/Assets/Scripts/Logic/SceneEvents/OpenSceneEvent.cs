@@ -1,6 +1,7 @@
 using ReMetalMax.Core;
 using ReMetalMax.Core.Event;
 using ReMetalMax.Core.Event.NativeEvents;
+using ReMetalMax.Logic.Map;
 using ReMetalMax.Util;
 using ReMetalMax.Util.Attributes;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace ReMetalMax.Logic.SceneEvents
         private GameObject m_openSceneTitleBgSprite;
         private GameObject m_openSceneContentSprite;
 
-        private PlayAnimationEvent m_playAnimationEvent;
+        private PromiseEvent m_playAnimationEvent;
         private MessageCallBack m_stopCallBack;
 
         public OpenSceneEvent(GameObject openSceneSprite, GameObject openSceneTitleSprite, GameObject openSceneTitleBgSprite, GameObject openSceneContentSprite)
@@ -58,7 +59,7 @@ namespace ReMetalMax.Logic.SceneEvents
             }
             .Then((ctx) =>
                 {
-                    context.Push(new InstantiateUISpriteEvent(m_openSceneTitleSprite, spriteTitleName));
+                    ctx.Push(new InstantiateUISpriteEvent(m_openSceneTitleSprite, spriteTitleName));
 
                     m_playAnimationEvent = new PlayAnimationEvent(
                         (cxt2) => cxt2[spriteTitleName].GetComponent<Animation>(),
@@ -67,14 +68,14 @@ namespace ReMetalMax.Logic.SceneEvents
                         OnForceStoped = (ctx3) => { }
                     };
 
-                    context.Push(new DestroySpriteEvent(spriteName));
+                    ctx.Push(new DestroySpriteEvent(spriteName));
 
                     return m_playAnimationEvent;
                 }
             )
             .Then((ctx) =>
                 {
-                    context.Push(new InstantiateUISpriteEvent(m_openSceneTitleBgSprite, spriteTitleBgName));
+                    ctx.Push(new InstantiateUISpriteEvent(m_openSceneTitleBgSprite, spriteTitleBgName));
 
                     m_playAnimationEvent = new PlayAnimationEvent(
                         (cxt2) => cxt2[spriteTitleBgName].GetComponent<Animation>(),
@@ -88,7 +89,7 @@ namespace ReMetalMax.Logic.SceneEvents
             )
             .Then((ctx) =>
                 {
-                    context.Push(new InstantiateUISpriteEvent(m_openSceneContentSprite, spriteContentName));
+                    ctx.Push(new InstantiateUISpriteEvent(m_openSceneContentSprite, spriteContentName));
 
                     m_playAnimationEvent = new PlayAnimationEvent(
                         (cxt2) => cxt2[spriteContentName].GetComponent<Animation>(),
@@ -98,6 +99,13 @@ namespace ReMetalMax.Logic.SceneEvents
                     };
 
                     return m_playAnimationEvent;
+                }
+            ).Then((ctx) =>
+                {
+                    var map = new TestMap();
+                    map.Load();
+                    ctx.Push(new SwitchMapEvent(map));
+                    return null;
                 }
             );
 

@@ -9,7 +9,6 @@ namespace ReMetalMax.Core.Event
 
         public EventContext Context { get; private set; } = new EventContext();
 
-
         public void Update()
         {
             var newEvent = this.Context.FrontEvent;
