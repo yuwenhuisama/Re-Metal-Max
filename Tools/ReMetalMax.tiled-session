@@ -1,44 +1,23 @@
 {
-    "Map/SizeTest": {
-        "height": 4300,
-        "width": 2
-    },
-    "activeFile": "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/test.tmx",
+    "activeFile": "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Maps/test.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "全部文件 (*)",
     "fileStates": {
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/1.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
-        },
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/2.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
-        },
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/3.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
-        },
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/test.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 1,
+        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Maps/test.tmx": {
+            "scale": 0.377625,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1633.333333333333,
-                "y": 1778.7878787878788
+                "x": 1586.2297252565377,
+                "y": 1602.1185038066867
             }
         }
     },
-    "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/test.tmx"
+        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Maps/test.tmx"
     ],
-    "project": "ReMetalMax.tiled-project",
-    "property.type": "bool",
+    "project": "",
     "recentFiles": [
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/test.tmx",
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/1.tsx",
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/2.tsx",
-        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Images/MapTiles/3.tsx"
-    ],
-    "tileset.lastUsedFormat": "tsx"
+        "F:/Projects/Re_Metal_Max/Re-Metal-Max/Assets/Resources/Maps/test.tmx"
+    ]
 }

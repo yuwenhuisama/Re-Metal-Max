@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 127761346}
   - component: {fileID: 127761345}
   m_Layer: 0
-  m_Name: BGMManager
+  m_Name: $BGMManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 1378484567}
   - component: {fileID: 1378484566}
   m_Layer: 0
-  m_Name: SoundAudioSource
+  m_Name: $SoundAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
