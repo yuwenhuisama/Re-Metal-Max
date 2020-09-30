@@ -126,7 +126,13 @@
           "choices": ["Auto", "Touch", "Input"],
           "defaults": 0
         },
-        {"name": "EventParameter", "definition": "Array", "display": 0, "defaults": ""}
+        {
+          "name": "TestList",
+          "definition": "List",
+          "display": 0,
+          "values": [],
+          "defaults": {"content": "1", "type": "int"}
+        }
       ]
     },
     {
