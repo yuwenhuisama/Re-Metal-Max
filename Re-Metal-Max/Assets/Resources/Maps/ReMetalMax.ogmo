@@ -131,7 +131,10 @@
           "definition": "List",
           "display": 0,
           "values": [],
-          "defaults": {"content": "1", "type": "int"}
+          "defaults": [
+            {"content": "1", "type": "int"},
+            {"content": "2", "type": "float"}
+          ]
         }
       ]
     },

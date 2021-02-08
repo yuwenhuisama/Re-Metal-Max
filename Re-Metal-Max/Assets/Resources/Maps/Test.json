@@ -19,21 +19,20 @@
           "name": "AvatarEvent",
           "id": 0,
           "_eid": "80581944",
-          "x": 192,
+          "x": 96,
           "y": 0,
           "originX": 0,
           "originY": 0,
-          "values": {"AvatarImagePath": "", "AvatarMovingMode": "Idle", "AvatarAnimationMode": "Playing", "EventType": "Text", "EventTriggerType": "Auto", "TestList": ""}
-        },
-        {
-          "name": "AvatarEvent",
-          "id": 1,
-          "_eid": "80581944",
-          "x": 224,
-          "y": 0,
-          "originX": 0,
-          "originY": 0,
-          "values": {"AvatarImagePath": "", "AvatarMovingMode": "Idle", "AvatarAnimationMode": "Playing", "EventType": "Text", "EventTriggerType": "Auto", "TestList": ""}
+          "values": {
+            "AvatarImagePath": "",
+            "AvatarMovingMode": "Idle",
+            "AvatarAnimationMode": "Playing",
+            "EventType": "Text",
+            "EventTriggerType": "Auto",
+            "TestList": [
+              {"content": "1", "type": "int"}
+            ]
+          }
         }
       ]
     },
